@@ -6,7 +6,8 @@
 void fun_sig(void);
 
 int main(){
-  //attach the callback to the USR1 signal
+  //attach the callback to the 
+  //USR1 signal
   signal(SIGUSR1, (void*)fun_sig);
 
   while(1){
@@ -20,6 +21,6 @@ void fun_sig(){
   //Reset the signal handler
   signal(SIGUSR1, (void*)fun_sig);
 
-  printf("Wahoo!  That was fun :) \n");
+  printf("Woo! That was fun :) \n");
 }
   
