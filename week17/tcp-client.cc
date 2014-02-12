@@ -71,8 +71,9 @@ int main()
   // the newline character.
   cout << "Input: ";
   cin.get(buf, MAX_LINE, '\n');
-  while (cin.get(c) && c != '\n')
-    ;
+  while (cin.get(c) && c != '\n') 
+    ; //Loop does nothing except consume
+
 
   // Stop when the user inputs a line with just a dot.
   while (strcmp(buf, ".")) {

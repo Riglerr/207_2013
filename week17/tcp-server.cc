@@ -24,19 +24,22 @@ int main()
   cout << "Enter port number to listen on (between 1500 and 65000): ";
   cin >> listenPort;
 
-  // Create socket for listening for client connection requests.
+  // Create socket for listening for client connection
+  // requests.
   listenSocket = socket(AF_INET, SOCK_STREAM, 0);
   if (listenSocket < 0) {
     cerr << "cannot create listen socket";
     exit(1);
   }
   
-  // Bind listen socket to listen port.  First set various fields in
-  // the serverAddress structure, then call bind().
-  // htonl() and htons() convert long integers and short integers
-  // (respectively) from host byte order (on x86 this is Least
-  // Significant Byte first) to network byte order (Most Significant
-  // Byte first).
+  // Bind listen socket to listen port. First set various
+  // fields in the serverAddress structure, then call
+  // bind().
+
+  // htonl() and htons() convert long integers and short
+  // integers (respectively) from host byte order (on x86
+  // this is Least Significant Byte first) to network byte
+  // order (Most Significant Byte first).
   serverAddress.sin_family = AF_INET;
   serverAddress.sin_addr.s_addr = htonl(INADDR_ANY);
   serverAddress.sin_port = htons(listenPort);
@@ -48,22 +51,23 @@ int main()
     exit(1);
   }
 
-  // Wait for connections from clients.
-  // This is a non-blocking call; i.e., it registers this program with
-  // the system as expecting connections on this socket, and then
-  // this thread of execution continues on.
+  // Wait for connections from clients. This is a
+  // non-blocking call; i.e., it registers this program with
+  // the system as expecting connections on this socket, and
+  // then this thread of execution continues on.
   listen(listenSocket, 5);
   
   while (1) {
     cout << "Waiting for TCP connection on port " << listenPort << " ...\n";
 
-    // Accept a connection with a client that is requesting one.  The
-    // accept() call is a blocking call; i.e., this thread of
-    // execution stops until a connection comes in.
-    // connectSocket is a new socket that the system provides,
-    // separate from listenSocket.  We *could* accept more
-    // connections on listenSocket, before connectSocket is closed,
-    // but this program doesn't do that.
+    // Accept a connection with a client that is requesting
+    // one. The accept() call is a blocking call; i.e., this
+    // thread of execution stops until a connection comes
+    // in. connectSocket is a new socket that the system
+    // provides, separate from listenSocket. We *could*
+    // accept more connections on listenSocket, before
+    // connectSocket is closed, but this program doesn't do
+    // that.
     clientAddressLength = sizeof(clientAddress);
     connectSocket = accept(listenSocket,
                            (struct sockaddr *) &clientAddress,
