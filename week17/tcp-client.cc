@@ -72,15 +72,17 @@ int main()
   cout << "Input: ";
   cin.get(buf, MAX_LINE, '\n');
   while (cin.get(c) && c != '\n') 
-    ; //Loop does nothing except consume
+    ; //Loop does nothing except consume the spare bytes
 
 
   // Stop when the user inputs a line with just a dot.
-  while (strcmp(buf, ".")) {
+  while (strcmp(buf, ".")) { //strcmp returns 0 when the two strings
+			     //are the same, so this continues when
+			     //they are different
     // Send the line to the server.
     if (send(socketDescriptor, buf, strlen(buf) + 1, 0) < 0) {
       cerr << "cannot send data ";
-      close(socketDescriptor);
+      close(socketDescriptor); //Note this is just like using files...
       exit(1);
     }
 
@@ -102,7 +104,7 @@ int main()
     cout << "Input: ";
     cin.get(buf, MAX_LINE, '\n');
     while (cin.get(c) && c != '\n')
-      ;
+      ; //Chomp chomp chomp
   }
 
   close(socketDescriptor);
